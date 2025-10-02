@@ -104,6 +104,7 @@
             gap: 3rem;
             margin-top: 3rem;
             animation: fadeInUp 1s ease 0.4s backwards;
+            flex-wrap: wrap;
         }
         
         .stat-item {
@@ -187,7 +188,7 @@
         /* Platforms Grid */
         .platforms-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
             gap: 2rem;
             margin-top: 2rem;
         }
@@ -256,6 +257,10 @@
         
         .platform-card.telegram {
             background: linear-gradient(135deg, #0088cc, #006699);
+        }
+        
+        .platform-card.tiktok {
+            background: linear-gradient(135deg, #fe2c55, #000000);
         }
         
         /* How it Works */
@@ -573,62 +578,95 @@
             opacity: 0.95;
         }
         
-        /* CTA Section */
-        .cta-section {
-            background: var(--gradient-pink);
-            color: white;
-            text-align: center;
-            padding: 5rem 3rem;
-            border-radius: 24px;
-            margin: 4rem 0;
-        }
-        
-        .cta-section h2 {
-            color: white;
-            font-size: 3rem;
-            margin-bottom: 1.5rem;
-        }
-        
-        .cta-section p {
-            font-size: 1.4rem;
-            margin-bottom: 2.5rem;
-            opacity: 0.95;
-        }
-        
-        .cta-button {
-            display: inline-block;
-            background: white;
-            color: #f5576c;
-            padding: 1.5rem 4rem;
-            border-radius: 50px;
-            font-size: 1.3rem;
-            font-weight: 700;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
-        
-        .cta-button:hover {
-            transform: scale(1.05) translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
-        }
-        
-        .cta-button i {
-            margin-left: 0.5rem;
-        }
-        
         /* Footer */
         footer {
-            background: var(--dark);
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
             color: white;
-            text-align: center;
-            padding: 3rem 2rem;
+            padding: 4rem 2rem 2rem;
             margin-top: 4rem;
         }
         
-        footer p {
-            opacity: 0.9;
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .footer-branding {
+            margin-bottom: 2rem;
+        }
+        
+        .footer-branding h3 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        
+        .footer-branding p {
+            opacity: 0.8;
+            font-size: 1.1rem;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+        }
+        
+        .footer-links a:hover {
+            background: rgba(255,255,255,0.1);
+            transform: translateY(-3px);
+            color: #4facfe;
+        }
+        
+        .footer-divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.2), transparent);
+            margin: 2rem 0;
+        }
+        
+        .footer-bottom {
+            opacity: 0.8;
+        }
+        
+        .footer-bottom p {
             margin: 0.5rem 0;
+        }
+        
+        .footer-tech {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .tech-badge {
+            background: rgba(255,255,255,0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
         
         /* Responsive */
@@ -667,6 +705,11 @@
             .benefits-container {
                 grid-template-columns: 1fr;
             }
+            
+            .footer-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
         }
         
         /* Animations */
@@ -688,11 +731,11 @@
         <div class="hero-content">
             <h1><i class="fas fa-rocket"></i> Social Media Publishing System</h1>
             <p class="hero-subtitle">
-                نظام ذكي متكامل لأتمتة نشر المحتوى على 5 منصات اجتماعية بضغطة زر واحدة 🚀
+                نظام ذكي متكامل لأتمتة نشر المحتوى على 6 منصات اجتماعية بضغطة زر واحدة 🚀
             </p>
             <div class="hero-stats">
                 <div class="stat-item">
-                    <span class="stat-number">5</span>
+                    <span class="stat-number">6</span>
                     <span class="stat-label">منصات مدعومة</span>
                 </div>
                 <div class="stat-item">
@@ -731,6 +774,10 @@
                 <div class="platform-card telegram">
                     <i class="fab fa-telegram"></i>
                     <h3>Telegram</h3>
+                </div>
+                <div class="platform-card tiktok">
+                    <i class="fab fa-tiktok"></i>
+                    <h3>TikTok</h3>
                 </div>
             </div>
         </section>
@@ -796,6 +843,7 @@
                             <br>📸 <strong>Instagram</strong> - نشر كـ Reels
                             <br>🐦 <strong>X (Twitter)</strong> - تغريدة مع رابط الفيديو
                             <br>✈️ <strong>Telegram</strong> - إرسال للقناة/المجموعة
+                            <br>🎵 <strong>TikTok</strong> - نشر الفيديو القصير
                         </p>
                         <span class="step-badge"><i class="fas fa-bolt"></i> نشر فوري ومتزامن</span>
                     </div>
@@ -855,7 +903,7 @@
                         <i class="fas fa-sync"></i>
                     </div>
                     <h3>نشر متزامن</h3>
-                    <p>نشر الفيديو على 5 منصات في نفس الوقت بدون أي تدخل يدوي، مما يوفر ساعات من العمل اليومي.</p>
+                    <p>نشر الفيديو على 6 منصات في نفس الوقت بدون أي تدخل يدوي، مما يوفر ساعات من العمل اليومي.</p>
                 </div>
 
                 <div class="feature-card">
@@ -920,7 +968,7 @@
                     </div>
                     <div class="benefit-content">
                         <h4>زيادة الوصول والمشاهدات</h4>
-                        <p>النشر على 5 منصات يعني 5 أضعاف الوصول. محتواك سيصل لجمهور أكبر بكثير من النشر على منصة واحدة.</p>
+                        <p>النشر على 6 منصات يعني 6 أضعاف الوصول. محتواك سيصل لجمهور أكبر بكثير من النشر على منصة واحدة.</p>
                     </div>
                 </div>
 
@@ -970,7 +1018,7 @@
                     </div>
                     <div class="benefit-content">
                         <h4>زيادة الدخل</h4>
-                        <p>المزيد من المشاهدات = المزيد من الأرباح. انشر على 5 منصات واحصل على 5 مصادر دخل من نفس المحتوى!</p>
+                        <p>المزيد من المشاهدات = المزيد من الأرباح. انشر على 6 منصات واحصل على 6 مصادر دخل من نفس المحتوى!</p>
                     </div>
                 </div>
 
@@ -1037,7 +1085,7 @@
                 </div>
                 <div class="stat-card">
                     <i class="fas fa-users"></i>
-                    <span class="number">5×</span>
+                    <span class="number">6×</span>
                     <span class="label">زيادة في الوصول</span>
                 </div>
                 <div class="stat-card">
@@ -1052,26 +1100,51 @@
                 </div>
             </div>
         </section>
-
-        <!-- CTA -->
-        <section class="cta-section animate-on-scroll">
-            <h2><i class="fas fa-rocket"></i> جاهز لتحويل طريقة نشر محتواك؟</h2>
-            <p>انضم لمئات صناع المحتوى الذين وفروا آلاف الساعات وضاعفوا وصولهم</p>
-            <a href="#" class="cta-button">
-                ابدأ الآن مجاناً <i class="fas fa-arrow-left"></i>
-            </a>
-        </section>
     </div>
 
     <!-- Footer -->
     <footer>
-        <p><i class="fas fa-code"></i> مبني بقوة n8n + Google Gemini AI</p>
-        <p style="margin-top: 1rem; opacity: 0.8;">
-            <i class="fas fa-heart" style="color: #ec4899;"></i> Social Media Publishing System 2024
-        </p>
-        <p style="margin-top: 1rem;">
-            <i class="fas fa-envelope"></i> للاستفسارات والدعم الفني
-        </p>
+        <div class="footer-content">
+            <div class="footer-branding">
+                <h3><i class="fas fa-rocket"></i> Social Media Publishing</h3>
+                <p>نظام النشر الآلي الذكي لجميع منصات التواصل الاجتماعي</p>
+            </div>
+            
+            <div class="footer-links">
+                <a href="Privacy%20Policy.html">
+                    <i class="fas fa-shield-alt"></i>
+                    سياسة الخصوصية
+                </a>
+                <a href="Terms%20%26%20Conditions.html">
+                    <i class="fas fa-file-contract"></i>
+                    الشروط والأحكام
+                </a>
+            </div>
+            
+            <div class="footer-divider"></div>
+            
+            <div class="footer-bottom">
+                <p><i class="fas fa-code"></i>تم انشائه بواسطة: Abdullah N8n</p>
+                <div class="footer-tech">
+                    <span class="tech-badge">
+                        <i class="fas fa-robot"></i>
+                        Gemini 2.0 Flash
+                    </span>
+                    <span class="tech-badge">
+                        <i class="fas fa-network-wired"></i>
+                        n8n Automation
+                    </span>
+                    <span class="tech-badge">
+                        <i class="fas fa-cloud"></i>
+                        Cloud Storage
+                    </span>
+                </div>
+                <p style="margin-top: 1.5rem; opacity: 0.7;">
+                    <i class="fas fa-heart" style="color: #ec4899;"></i> 
+                    Social Media Publishing System © 2025
+                </p>
+            </div>
+        </div>
     </footer>
 
     <script>
