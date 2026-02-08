@@ -4,1195 +4,2506 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Social Media Publishing - نظام النشر الآلي المتطور</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta name="description" content="نظام ذكي متكامل لأتمتة نشر المحتوى على جميع منصات التواصل الاجتماعي بضغطة زر واحدة باستخدام الذكاء الاصطناعي">
+    <meta name="keywords" content="نشر تلقائي, سوشيال ميديا, أتمتة, ذكاء اصطناعي, يوتيوب, فيسبوك, انستقرام, تيك توك">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap');
-        
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Tajawal:wght@300;400;500;700;800;900&display=swap');
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         :root {
             --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --primary-light: #818cf8;
             --secondary: #8b5cf6;
+            --accent: #06b6d4;
             --success: #10b981;
             --warning: #f59e0b;
             --danger: #ef4444;
-            --dark: #1e293b;
+            --dark: #0f172a;
+            --dark-2: #1e293b;
+            --dark-3: #334155;
+            --gray: #64748b;
+            --gray-light: #94a3b8;
             --light: #f8fafc;
-            --gradient-purple: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --light-2: #f1f5f9;
+            --light-3: #e2e8f0;
+            --white: #ffffff;
+            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             --gradient-blue: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
             --gradient-pink: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
             --gradient-green: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            --gradient-orange: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gradient-dark: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+            --shadow-md: 0 4px 15px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 40px rgba(0,0,0,0.12);
+            --shadow-xl: 0 25px 60px rgba(0,0,0,0.15);
+            --shadow-primary: 0 10px 30px rgba(99,102,241,0.3);
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 20px;
+            --radius-xl: 28px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        
+
         body {
-            font-family: 'Cairo', sans-serif;
-            background: linear-gradient(to bottom, #f8fafc, #e2e8f0);
+            font-family: 'Cairo', 'Tajawal', sans-serif;
+            background: var(--light);
             color: var(--dark);
             line-height: 1.8;
             overflow-x: hidden;
         }
-        
-        /* Header */
-        .hero {
-            background: var(--gradient-purple);
+
+        /* ===== NAVBAR ===== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            padding: 0 2rem;
+            transition: var(--transition);
+        }
+
+        .navbar.scrolled {
+            background: rgba(15, 23, 42, 0.95);
+            box-shadow: 0 4px 30px rgba(0,0,0,0.3);
+        }
+
+        .navbar-inner {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 72px;
+        }
+
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
             color: white;
-            padding: 6rem 2rem 4rem;
-            text-align: center;
+        }
+
+        .brand-logo {
+            width: 42px;
+            height: 42px;
+            background: var(--gradient-primary);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            color: white;
+            box-shadow: var(--shadow-primary);
+        }
+
+        .brand-text {
+            font-size: 1.2rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .brand-text span {
+            background: var(--gradient-blue);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .navbar-links {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            list-style: none;
+        }
+
+        .navbar-links a {
+            color: rgba(255,255,255,0.75);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-sm);
+            transition: var(--transition);
+        }
+
+        .navbar-links a:hover {
+            color: white;
+            background: rgba(255,255,255,0.1);
+        }
+
+        .navbar-cta {
+            background: var(--gradient-primary) !important;
+            color: white !important;
+            padding: 0.6rem 1.5rem !important;
+            border-radius: 50px !important;
+            font-weight: 700 !important;
+            box-shadow: var(--shadow-primary);
+            transition: var(--transition);
+        }
+
+        .navbar-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 35px rgba(99,102,241,0.4);
+        }
+
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--gradient-dark);
+            color: white;
+            padding: 8rem 2rem 5rem;
             position: relative;
             overflow: hidden;
         }
-        
-        .hero::before {
-            content: '';
+
+        .hero-bg-shapes {
             position: absolute;
-            top: -50%;
-            right: -10%;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .hero-bg-shapes .shape {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.15;
+        }
+
+        .hero-bg-shapes .shape-1 {
+            width: 600px;
+            height: 600px;
+            background: #667eea;
+            top: -200px;
+            right: -100px;
+            animation: morphFloat 12s ease-in-out infinite;
+        }
+
+        .hero-bg-shapes .shape-2 {
             width: 500px;
             height: 500px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 50%;
-            animation: float 6s ease-in-out infinite;
+            background: #764ba2;
+            bottom: -150px;
+            left: -100px;
+            animation: morphFloat 10s ease-in-out infinite reverse;
         }
-        
-        .hero::after {
-            content: '';
+
+        .hero-bg-shapes .shape-3 {
+            width: 300px;
+            height: 300px;
+            background: #4facfe;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: morphFloat 8s ease-in-out infinite 2s;
+        }
+
+        .hero-grid-overlay {
             position: absolute;
-            bottom: -30%;
-            left: -5%;
-            width: 400px;
-            height: 400px;
-            background: rgba(255,255,255,0.05);
-            border-radius: 50%;
-            animation: float 8s ease-in-out infinite reverse;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
         }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-30px); }
+
+        @keyframes morphFloat {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -30px) scale(1.05); }
+            66% { transform: translate(-20px, 20px) scale(0.95); }
         }
-        
+
         .hero-content {
             position: relative;
-            z-index: 1;
-            max-width: 1000px;
-            margin: 0 auto;
+            z-index: 2;
+            max-width: 900px;
+            text-align: center;
         }
-        
-        h1 {
-            font-size: 3.5rem;
-            font-weight: 900;
-            margin-bottom: 1.5rem;
-            text-shadow: 2px 2px 8px rgba(0,0,0,0.2);
-            animation: fadeInDown 1s ease;
-        }
-        
-        .hero-subtitle {
-            font-size: 1.5rem;
-            font-weight: 300;
-            opacity: 0.95;
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(99,102,241,0.15);
+            border: 1px solid rgba(99,102,241,0.3);
+            color: var(--primary-light);
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
             margin-bottom: 2rem;
-            animation: fadeInUp 1s ease 0.2s backwards;
+            animation: fadeInDown 0.8s ease;
         }
-        
+
+        .hero-badge .pulse-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--success);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.5); }
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4.2rem);
+            font-weight: 900;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 0.8s ease 0.1s backwards;
+        }
+
+        .hero h1 .gradient-text {
+            background: var(--gradient-blue);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-description {
+            font-size: 1.25rem;
+            color: rgba(255,255,255,0.7);
+            max-width: 700px;
+            margin: 0 auto 2.5rem;
+            line-height: 2;
+            animation: fadeInUp 0.8s ease 0.2s backwards;
+        }
+
+        .hero-buttons {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 4rem;
+            animation: fadeInUp 0.8s ease 0.3s backwards;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.9rem 2rem;
+            border-radius: 50px;
+            font-size: 1.05rem;
+            font-weight: 700;
+            text-decoration: none;
+            font-family: 'Cairo', sans-serif;
+            cursor: pointer;
+            border: none;
+            transition: var(--transition);
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: white;
+            box-shadow: var(--shadow-primary);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 40px rgba(99,102,241,0.4);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: white;
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+
+        .btn-outline:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: rgba(255,255,255,0.6);
+            transform: translateY(-3px);
+        }
+
         .hero-stats {
             display: flex;
             justify-content: center;
             gap: 3rem;
-            margin-top: 3rem;
-            animation: fadeInUp 1s ease 0.4s backwards;
+            animation: fadeInUp 0.8s ease 0.4s backwards;
             flex-wrap: wrap;
         }
-        
-        .stat-item {
+
+        .hero-stat {
             text-align: center;
+            position: relative;
         }
-        
-        .stat-number {
-            font-size: 3rem;
+
+        .hero-stat:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            left: -1.5rem;
+            top: 15%;
+            height: 70%;
+            width: 1px;
+            background: rgba(255,255,255,0.15);
+        }
+
+        .hero-stat-number {
+            font-size: 2.8rem;
             font-weight: 900;
             display: block;
             line-height: 1;
-        }
-        
-        .stat-label {
-            font-size: 1rem;
-            opacity: 0.9;
-            margin-top: 0.5rem;
-        }
-        
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        /* Container */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-        
-        /* Section */
-        section {
-            background: white;
-            margin: 3rem 0;
-            padding: 4rem 3rem;
-            border-radius: 24px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.06);
-            animation: fadeIn 1s ease;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        h2 {
-            font-size: 2.5rem;
-            color: var(--primary);
-            margin-bottom: 3rem;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            justify-content: center;
-            text-align: center;
-        }
-        
-        h2 i {
-            background: var(--gradient-purple);
+            background: var(--gradient-blue);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        
-        /* Platforms Grid */
+
+        .hero-stat-label {
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.6);
+            margin-top: 0.5rem;
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== TRUST BAR ===== */
+        .trust-bar {
+            background: white;
+            border-bottom: 1px solid var(--light-3);
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .trust-bar p {
+            color: var(--gray);
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1.5rem;
+        }
+
+        .trust-logos {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+            opacity: 0.5;
+        }
+
+        .trust-logos .tech-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.1rem;
+            color: var(--dark-3);
+            font-weight: 700;
+        }
+
+        .trust-logos .tech-item i {
+            font-size: 1.8rem;
+        }
+
+        /* ===== CONTAINER ===== */
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* ===== SECTION STYLES ===== */
+        .section {
+            padding: 6rem 0;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 4rem;
+        }
+
+        .section-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(99,102,241,0.08);
+            color: var(--primary);
+            padding: 0.4rem 1.2rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            letter-spacing: 0.5px;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 900;
+            color: var(--dark);
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+
+        .section-subtitle {
+            font-size: 1.15rem;
+            color: var(--gray);
+            line-height: 1.9;
+        }
+
+        /* ===== PLATFORMS SECTION ===== */
+        .platforms-section {
+            background: white;
+        }
+
         .platforms-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
+            gap: 1.5rem;
         }
-        
+
         .platform-card {
-            padding: 2.5rem 2rem;
-            border-radius: 20px;
+            padding: 2.5rem 1.5rem;
+            border-radius: var(--radius-lg);
             text-align: center;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: var(--transition);
             cursor: pointer;
             position: relative;
             overflow: hidden;
         }
-        
-        .platform-card::before {
+
+        .platform-card::after {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            opacity: 0.1;
-            transition: opacity 0.3s;
+            inset: 0;
+            background: linear-gradient(180deg, transparent 60%, rgba(0,0,0,0.15) 100%);
+            pointer-events: none;
         }
-        
+
         .platform-card:hover {
-            transform: translateY(-15px) scale(1.05);
-            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+            transform: translateY(-12px) scale(1.03);
+            box-shadow: var(--shadow-xl);
         }
-        
-        .platform-card:hover::before {
-            opacity: 0.2;
-        }
-        
+
         .platform-card i {
-            font-size: 4rem;
+            font-size: 3.5rem;
             margin-bottom: 1rem;
             color: white;
             position: relative;
             z-index: 1;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
         }
-        
+
         .platform-card h3 {
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             color: white;
             font-weight: 700;
             position: relative;
             z-index: 1;
         }
-        
-        .platform-card.youtube {
-            background: linear-gradient(135deg, #ff0000, #cc0000);
-        }
-        
-        .platform-card.facebook {
-            background: linear-gradient(135deg, #1877f2, #0d5fbb);
-        }
-        
-        .platform-card.instagram {
-            background: linear-gradient(135deg, #e4405f, #c13584, #833ab4);
-        }
-        
-        .platform-card.twitter {
-            background: linear-gradient(135deg, #000000, #333333);
-        }
-        
-        .platform-card.telegram {
-            background: linear-gradient(135deg, #0088cc, #006699);
-        }
-        
-        .platform-card.tiktok {
-            background: linear-gradient(135deg, #fe2c55, #000000);
-        }
-        
-        /* How it Works */
-        .workflow-container {
+
+        .platform-card .platform-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            background: rgba(255,255,255,0.2);
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            color: white;
+            margin-top: 0.75rem;
             position: relative;
-            padding: 2rem 0;
+            z-index: 1;
         }
-        
-        .workflow-step {
-            display: flex;
-            align-items: flex-start;
-            gap: 2rem;
-            margin-bottom: 3rem;
+
+        .platform-card.youtube { background: linear-gradient(135deg, #ff0000, #cc0000); }
+        .platform-card.facebook { background: linear-gradient(135deg, #1877f2, #0d5fbb); }
+        .platform-card.instagram { background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
+        .platform-card.twitter { background: linear-gradient(135deg, #14171a, #333333); }
+        .platform-card.telegram { background: linear-gradient(135deg, #2aabee, #0088cc); }
+        .platform-card.tiktok { background: linear-gradient(135deg, #25f4ee, #fe2c55, #000000); }
+        .platform-card.snapchat { background: linear-gradient(135deg, #fffc00, #f7d800); }
+        .platform-card.snapchat h3, .platform-card.snapchat .platform-status { color: #333; }
+        .platform-card.linkedin { background: linear-gradient(135deg, #0077b5, #005582); }
+
+        /* ===== HOW IT WORKS ===== */
+        .how-it-works {
+            background: var(--light);
+        }
+
+        .workflow-timeline {
             position: relative;
+            max-width: 850px;
+            margin: 0 auto;
         }
-        
-        .workflow-step:not(:last-child)::after {
+
+        .workflow-timeline::before {
             content: '';
             position: absolute;
-            right: 29px;
-            top: 80px;
-            width: 2px;
-            height: calc(100% + 10px);
-            background: linear-gradient(to bottom, var(--primary), transparent);
+            right: 35px;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(to bottom, var(--primary), var(--accent), var(--success));
+            border-radius: 3px;
         }
-        
-        .step-icon {
-            min-width: 60px;
-            height: 60px;
-            background: var(--gradient-purple);
-            color: white;
+
+        .timeline-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 2.5rem;
+            margin-bottom: 2.5rem;
+            position: relative;
+        }
+
+        .timeline-icon {
+            min-width: 72px;
+            height: 72px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.8rem;
-            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.4);
-            position: relative;
-            z-index: 1;
-        }
-        
-        .step-content {
-            flex: 1;
-            background: linear-gradient(145deg, #f8fafc, #ffffff);
-            padding: 2rem;
-            border-radius: 16px;
-            border-right: 4px solid var(--primary);
-            transition: all 0.3s ease;
-        }
-        
-        .step-content:hover {
-            transform: translateX(-8px);
-            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.15);
-        }
-        
-        .step-content h3 {
             font-size: 1.6rem;
-            color: var(--dark);
-            margin-bottom: 0.8rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        
-        .step-content p {
-            color: #64748b;
-            font-size: 1.1rem;
-            line-height: 1.8;
-        }
-        
-        .step-badge {
-            display: inline-block;
-            background: var(--gradient-purple);
             color: white;
-            padding: 0.3rem 1rem;
-            border-radius: 20px;
+            position: relative;
+            z-index: 2;
+            box-shadow: var(--shadow-lg);
+            flex-shrink: 0;
+        }
+
+        .timeline-icon.step-1 { background: var(--gradient-primary); }
+        .timeline-icon.step-2 { background: var(--gradient-blue); }
+        .timeline-icon.step-3 { background: var(--gradient-pink); }
+        .timeline-icon.step-4 { background: var(--gradient-green); }
+        .timeline-icon.step-5 { background: linear-gradient(135deg, #f59e0b, #d97706); }
+
+        .timeline-card {
+            flex: 1;
+            background: white;
+            padding: 2rem 2.5rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--light-3);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .timeline-card::before {
+            content: '';
+            position: absolute;
+            right: -12px;
+            top: 24px;
+            width: 24px;
+            height: 24px;
+            background: white;
+            border: 1px solid var(--light-3);
+            border-left: none;
+            border-bottom: none;
+            transform: rotate(45deg);
+        }
+
+        .timeline-card:hover {
+            transform: translateX(-8px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary-light);
+        }
+
+        .timeline-card .step-number {
+            display: inline-block;
+            background: var(--gradient-primary);
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 32px;
             font-size: 0.85rem;
+            font-weight: 800;
+            margin-bottom: 0.75rem;
+        }
+
+        .timeline-card h3 {
+            font-size: 1.4rem;
+            color: var(--dark);
+            margin-bottom: 0.75rem;
+            font-weight: 800;
+        }
+
+        .timeline-card p {
+            color: var(--gray);
+            font-size: 1.05rem;
+            line-height: 1.9;
+        }
+
+        .timeline-card .step-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            background: rgba(99,102,241,0.08);
+            color: var(--primary);
+            padding: 0.35rem 1rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-top: 1rem;
+        }
+
+        .timeline-card .platforms-mini {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .platforms-mini span {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            background: var(--light-2);
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
             font-weight: 600;
-            margin-top: 0.8rem;
+            color: var(--dark-3);
         }
-        
-        /* Features Grid */
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-        
-        .feature-card {
-            background: linear-gradient(145deg, #ffffff, #f8fafc);
-            padding: 2.5rem;
-            border-radius: 20px;
-            transition: all 0.3s ease;
-            border: 2px solid #e2e8f0;
+
+        /* ===== AI SHOWCASE ===== */
+        .ai-section {
+            background: var(--dark);
+            color: white;
             position: relative;
             overflow: hidden;
         }
-        
-        .feature-card::before {
-            content: '';
+
+        .ai-section .section-label {
+            background: rgba(99,102,241,0.2);
+            color: var(--primary-light);
+        }
+
+        .ai-section .section-title {
+            color: white;
+        }
+
+        .ai-section .section-subtitle {
+            color: rgba(255,255,255,0.6);
+        }
+
+        .ai-bg-glow {
             position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(99, 102, 241, 0.05) 0%, transparent 70%);
-            transform: scale(0);
-            transition: transform 0.5s ease;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.08;
+            pointer-events: none;
         }
-        
-        .feature-card:hover::before {
-            transform: scale(1);
+
+        .ai-bg-glow.glow-1 {
+            background: #667eea;
+            top: -200px;
+            right: -100px;
         }
-        
-        .feature-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.15);
-            border-color: var(--primary);
+
+        .ai-bg-glow.glow-2 {
+            background: #4facfe;
+            bottom: -200px;
+            left: -100px;
         }
-        
-        .feature-icon {
+
+        .ai-features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .ai-card {
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.08);
+            padding: 2.5rem 2rem;
+            border-radius: var(--radius-lg);
+            transition: var(--transition);
+            text-align: center;
+        }
+
+        .ai-card:hover {
+            background: rgba(255,255,255,0.1);
+            transform: translateY(-8px);
+            border-color: rgba(99,102,241,0.3);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .ai-card-icon {
             width: 70px;
             height: 70px;
-            background: var(--gradient-purple);
-            color: white;
-            border-radius: 16px;
+            margin: 0 auto 1.5rem;
+            background: var(--gradient-primary);
+            border-radius: var(--radius-md);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2rem;
-            margin-bottom: 1.5rem;
-            position: relative;
-            z-index: 1;
+            font-size: 1.8rem;
+            color: white;
+            box-shadow: var(--shadow-primary);
         }
-        
-        .feature-card h3 {
-            font-size: 1.5rem;
-            color: var(--dark);
-            margin-bottom: 1rem;
-            position: relative;
-            z-index: 1;
+
+        .ai-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.75rem;
+            font-weight: 700;
         }
-        
-        .feature-card p {
-            color: #64748b;
+
+        .ai-card p {
+            color: rgba(255,255,255,0.6);
             line-height: 1.8;
+            font-size: 0.95rem;
+        }
+
+        .ai-showcase-banner {
+            margin-top: 3rem;
+            background: var(--gradient-primary);
+            padding: 3rem;
+            border-radius: var(--radius-xl);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2rem;
             position: relative;
             z-index: 1;
+            flex-wrap: wrap;
         }
-        
-        /* Benefits List */
-        .benefits-container {
+
+        .ai-showcase-banner .banner-text h3 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+
+        .ai-showcase-banner .banner-text p {
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+
+        .ai-showcase-banner .banner-stats {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .ai-showcase-banner .banner-stat {
+            text-align: center;
+            background: rgba(255,255,255,0.15);
+            padding: 1rem 1.5rem;
+            border-radius: var(--radius-md);
+        }
+
+        .banner-stat .num {
+            font-size: 2rem;
+            font-weight: 900;
+            display: block;
+        }
+
+        .banner-stat .lbl {
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+
+        /* ===== FEATURES ===== */
+        .features-section {
+            background: white;
+        }
+
+        .features-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 2rem;
-            margin-top: 2rem;
         }
-        
-        .benefit-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 1.5rem;
-            padding: 2rem;
-            background: linear-gradient(145deg, #f0fdf4, #dcfce7);
-            border-radius: 16px;
-            border-right: 4px solid var(--success);
-            transition: all 0.3s ease;
+
+        .feature-card {
+            background: var(--light);
+            padding: 2.5rem;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--light-3);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
         }
-        
-        .benefit-item:hover {
-            transform: translateX(-8px);
-            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.2);
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: var(--gradient-primary);
+            opacity: 0.05;
+            border-radius: 0 0 0 100%;
+            transition: var(--transition);
         }
-        
-        .benefit-icon {
-            min-width: 50px;
-            height: 50px;
-            background: var(--success);
-            color: white;
-            border-radius: 12px;
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary-light);
+        }
+
+        .feature-card:hover::before {
+            width: 200px;
+            height: 200px;
+            opacity: 0.08;
+        }
+
+        .feature-icon-box {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-primary);
+            border-radius: var(--radius-md);
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 1.5rem;
-        }
-        
-        .benefit-content h4 {
-            font-size: 1.3rem;
-            color: #065f46;
-            margin-bottom: 0.5rem;
-        }
-        
-        .benefit-content p {
-            color: #047857;
-            line-height: 1.7;
-        }
-        
-        /* AI Section */
-        .ai-showcase {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 4rem 3rem;
-            border-radius: 24px;
             color: white;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .ai-showcase::before {
-            content: '🤖';
-            position: absolute;
-            font-size: 15rem;
-            opacity: 0.05;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-        
-        .ai-showcase h2 {
-            color: white;
-            justify-content: center;
-            font-size: 2.8rem;
             margin-bottom: 1.5rem;
+            box-shadow: var(--shadow-primary);
         }
-        
-        .ai-showcase p {
-            font-size: 1.3rem;
-            opacity: 0.95;
-            max-width: 800px;
-            margin: 0 auto 2rem;
-            line-height: 2;
+
+        .feature-card h3 {
+            font-size: 1.35rem;
+            color: var(--dark);
+            margin-bottom: 0.75rem;
+            font-weight: 800;
         }
-        
-        .ai-features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-            position: relative;
-            z-index: 1;
+
+        .feature-card p {
+            color: var(--gray);
+            line-height: 1.8;
+            font-size: 1rem;
         }
-        
-        .ai-feature {
-            background: rgba(255,255,255,0.15);
-            backdrop-filter: blur(10px);
-            padding: 2rem;
-            border-radius: 16px;
-            border: 1px solid rgba(255,255,255,0.2);
-            transition: all 0.3s ease;
-        }
-        
-        .ai-feature:hover {
-            background: rgba(255,255,255,0.25);
-            transform: translateY(-8px);
-        }
-        
-        .ai-feature i {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            display: block;
-        }
-        
-        .ai-feature h3 {
-            font-size: 1.4rem;
-            margin-bottom: 0.8rem;
-        }
-        
-        /* Stats Section */
-        .stats-section {
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-            padding: 4rem 3rem;
-            border-radius: 24px;
-            color: white;
-        }
-        
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 3rem;
-            margin-top: 2rem;
-        }
-        
-        .stat-card {
-            text-align: center;
-            padding: 2rem;
-            background: rgba(255,255,255,0.15);
-            backdrop-filter: blur(10px);
-            border-radius: 16px;
-            border: 1px solid rgba(255,255,255,0.2);
-            transition: all 0.3s ease;
-        }
-        
-        .stat-card:hover {
-            transform: scale(1.05);
-            background: rgba(255,255,255,0.25);
-        }
-        
-        .stat-card i {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            display: block;
-        }
-        
-        .stat-card .number {
-            font-size: 3.5rem;
-            font-weight: 900;
-            display: block;
-            line-height: 1;
-            margin-bottom: 0.5rem;
-        }
-        
-        .stat-card .label {
-            font-size: 1.1rem;
-            opacity: 0.95;
-        }
-        
-        /* Footer */
-        footer {
-            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-            color: white;
-            padding: 4rem 2rem 2rem;
-            margin-top: 4rem;
-        }
-        
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            text-align: center;
-        }
-        
-        .footer-branding {
-            margin-bottom: 2rem;
-        }
-        
-        .footer-branding h3 {
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-        }
-        
-        .footer-branding p {
-            opacity: 0.8;
-            font-size: 1.1rem;
-        }
-        
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 3rem;
-            margin: 2rem 0;
-            flex-wrap: wrap;
-        }
-        
-        .footer-links a {
-            color: white;
-            text-decoration: none;
-            font-size: 1.1rem;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-        }
-        
-        .footer-links a:hover {
-            background: rgba(255,255,255,0.1);
-            transform: translateY(-3px);
-            color: #4facfe;
-        }
-        
-        .footer-divider {
-            height: 1px;
-            background: linear-gradient(to right, transparent, rgba(255,255,255,0.2), transparent);
-            margin: 2rem 0;
-        }
-        
-        .footer-bottom {
-            opacity: 0.8;
-        }
-        
-        .footer-bottom p {
-            margin: 0.5rem 0;
-        }
-        
-        .footer-tech {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            margin-top: 1.5rem;
-            flex-wrap: wrap;
-        }
-        
-        .tech-badge {
-            background: rgba(255,255,255,0.1);
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        
-        /* Responsive */
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2.2rem;
-            }
-            
-            .hero-subtitle {
-                font-size: 1.1rem;
-            }
-            
-            .hero-stats {
-                flex-direction: column;
-                gap: 2rem;
-            }
-            
-            section {
-                padding: 2.5rem 1.5rem;
-            }
-            
-            h2 {
-                font-size: 2rem;
-            }
-            
-            .workflow-step {
-                flex-direction: column;
-            }
-            
-            .workflow-step:not(:last-child)::after {
-                right: 20px;
-            }
-            
-            .platforms-grid,
-            .features-grid,
-            .benefits-container {
-                grid-template-columns: 1fr;
-            }
-            
-            .footer-links {
-                flex-direction: column;
-                gap: 1rem;
-            }
-        }
-        
-        /* Animations */
+
+        /* ===== ANIMATIONS ===== */
         .animate-on-scroll {
             opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.6s ease;
+            transform: translateY(40px);
+            transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        
+
         .animate-on-scroll.visible {
             opacity: 1;
             transform: translateY(0);
         }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .navbar-links {
+                display: none;
+            }
+            .mobile-toggle {
+                display: block;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                padding: 7rem 1.5rem 4rem;
+            }
+
+            .hero-stats {
+                gap: 2rem;
+            }
+
+            .hero-stat:not(:last-child)::after {
+                display: none;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .section {
+                padding: 4rem 0;
+            }
+
+            .platforms-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .timeline-step {
+                flex-direction: column;
+                padding-right: 4rem;
+            }
+
+            .workflow-timeline::before {
+                right: 12px;
+            }
+
+            .timeline-icon {
+                min-width: 56px;
+                height: 56px;
+                font-size: 1.3rem;
+                position: absolute;
+                right: -16px;
+            }
+
+            .timeline-card::before {
+                display: none;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .ai-features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .ai-showcase-banner {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .trust-logos {
+                gap: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .platforms-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+
+            .platform-card {
+                padding: 1.5rem 1rem;
+            }
+
+            .platform-card i {
+                font-size: 2.5rem;
+            }
+
+            .platform-card h3 {
+                font-size: 1rem;
+            }
+        }
     </style>
 </head>
 <body>
-    <!-- Hero Section -->
-    <div class="hero">
+
+    <!-- NAVBAR -->
+    <nav class="navbar" id="navbar">
+        <div class="navbar-inner">
+            <a href="#" class="navbar-brand">
+                <div class="brand-logo"><i class="fas fa-paper-plane"></i></div>
+                <div class="brand-text">SMP <span>System</span></div>
+            </a>
+            <ul class="navbar-links">
+                <li><a href="#platforms">المنصات</a></li>
+                <li><a href="#how-it-works">آلية العمل</a></li>
+                <li><a href="#ai">الذكاء الاصطناعي</a></li>
+                <li><a href="#features">المميزات</a></li>
+                <li><a href="#benefits">الفوائد</a></li>
+                <li><a href="#faq">الأسئلة الشائعة</a></li>
+                <li><a href="#contact" class="navbar-cta">تواصل معنا</a></li>
+            </ul>
+            <button class="mobile-toggle" id="mobileToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-bg-shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+        </div>
+        <div class="hero-grid-overlay"></div>
         <div class="hero-content">
-            <h1><i class="fas fa-rocket"></i> Social Media Publishing System</h1>
-            <p class="hero-subtitle">
-                نظام ذكي متكامل لأتمتة نشر المحتوى على 6 منصات اجتماعية بضغطة زر واحدة 🚀
+            <div class="hero-badge">
+                <span class="pulse-dot"></span>
+                الإصدار الأحدث 2026 — مدعوم بالذكاء الاصطناعي
+            </div>
+            <h1>
+                انشر محتواك على <span class="gradient-text">جميع المنصات</span> بضغطة زر واحدة
+            </h1>
+            <p class="hero-description">
+                نظام أتمتة ذكي ومتكامل يدير عملية النشر بالكامل — من تحسين المحتوى بالذكاء الاصطناعي إلى النشر التلقائي على أكثر من 6 منصات اجتماعية، بكفاءة عالية وبدون أي تدخل يدوي.
             </p>
+            <div class="hero-buttons">
+                <a href="#how-it-works" class="btn btn-primary">
+                    <i class="fas fa-play-circle"></i>
+                    اكتشف كيف يعمل
+                </a>
+                <a href="#contact" class="btn btn-outline">
+                    <i class="fas fa-envelope"></i>
+                    تواصل معنا
+                </a>
+            </div>
             <div class="hero-stats">
-                <div class="stat-item">
-                    <span class="stat-number">6</span>
-                    <span class="stat-label">منصات مدعومة</span>
+                <div class="hero-stat">
+                    <span class="hero-stat-number">6+</span>
+                    <span class="hero-stat-label">منصة مدعومة</span>
                 </div>
-                <div class="stat-item">
-                    <span class="stat-number">100%</span>
-                    <span class="stat-label">أتمتة كاملة</span>
+                <div class="hero-stat">
+                    <span class="hero-stat-number">100%</span>
+                    <span class="hero-stat-label">أتمتة كاملة</span>
                 </div>
-                <div class="stat-item">
-                    <span class="stat-number">AI</span>
-                    <span class="stat-label">تحسين SEO ذكي</span>
+                <div class="hero-stat">
+                    <span class="hero-stat-number">AI</span>
+                    <span class="hero-stat-label">تحسين ذكي للمحتوى</span>
+                </div>
+                <div class="hero-stat">
+                    <span class="hero-stat-number">24/7</span>
+                    <span class="hero-stat-label">عمل بدون توقف</span>
                 </div>
             </div>
         </div>
+    </section>
+
+    <!-- TRUST BAR -->
+    <div class="trust-bar">
+        <p>مبني بأحدث التقنيات العالمية</p>
+        <div class="trust-logos">
+            <div class="tech-item"><i class="fas fa-robot"></i> Gemini 2.0</div>
+            <div class="tech-item"><i class="fas fa-network-wired"></i> n8n Automation</div>
+            <div class="tech-item"><i class="fab fa-google-drive"></i> Google Drive</div>
+            <div class="tech-item"><i class="fas fa-cloud"></i> ImageKit CDN</div>
+            <div class="tech-item"><i class="fab fa-telegram"></i> Telegram Bot</div>
+        </div>
     </div>
 
-    <div class="container">
-        <!-- Supported Platforms -->
-        <section class="animate-on-scroll">
-            <h2><i class="fas fa-globe"></i> المنصات المدعومة</h2>
-            <div class="platforms-grid">
+    <!-- PLATFORMS -->
+    <section class="section platforms-section" id="platforms">
+        <div class="container">
+            <div class="section-header animate-on-scroll">
+                <span class="section-label"><i class="fas fa-globe"></i> المنصات المدعومة</span>
+                <h2 class="section-title">كل المنصات التي تحتاجها في مكان واحد</h2>
+                <p class="section-subtitle">ننشر محتواك تلقائياً على أبرز منصات التواصل الاجتماعي بجودة احترافية ومحتوى محسّن لكل منصة</p>
+            </div>
+            <div class="platforms-grid animate-on-scroll">
                 <div class="platform-card youtube">
                     <i class="fab fa-youtube"></i>
                     <h3>YouTube</h3>
+                    <div class="platform-status"><i class="fas fa-check-circle"></i> مدعوم</div>
                 </div>
                 <div class="platform-card facebook">
                     <i class="fab fa-facebook-f"></i>
                     <h3>Facebook</h3>
+                    <div class="platform-status"><i class="fas fa-check-circle"></i> مدعوم</div>
                 </div>
                 <div class="platform-card instagram">
                     <i class="fab fa-instagram"></i>
                     <h3>Instagram</h3>
+                    <div class="platform-status"><i class="fas fa-check-circle"></i> مدعوم</div>
                 </div>
                 <div class="platform-card twitter">
                     <i class="fab fa-x-twitter"></i>
                     <h3>X (Twitter)</h3>
+                    <div class="platform-status"><i class="fas fa-check-circle"></i> مدعوم</div>
                 </div>
                 <div class="platform-card telegram">
                     <i class="fab fa-telegram"></i>
                     <h3>Telegram</h3>
+                    <div class="platform-status"><i class="fas fa-check-circle"></i> مدعوم</div>
                 </div>
                 <div class="platform-card tiktok">
                     <i class="fab fa-tiktok"></i>
                     <h3>TikTok</h3>
+                    <div class="platform-status"><i class="fas fa-check-circle"></i> مدعوم</div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- How it Works -->
-        <section class="animate-on-scroll">
-            <h2><i class="fas fa-cogs"></i> كيف يعمل النظام؟</h2>
-            <div class="workflow-container">
-                <div class="workflow-step">
-                    <div class="step-icon">
+    <!-- HOW IT WORKS -->
+    <section class="section how-it-works" id="how-it-works">
+        <div class="container">
+            <div class="section-header animate-on-scroll">
+                <span class="section-label"><i class="fas fa-cogs"></i> آلية العمل</span>
+                <h2 class="section-title">كيف يعمل النظام؟</h2>
+                <p class="section-subtitle">خمس خطوات بسيطة تفصلك عن أتمتة كاملة لعملية النشر على جميع المنصات</p>
+            </div>
+            <div class="workflow-timeline">
+                <div class="timeline-step animate-on-scroll">
+                    <div class="timeline-icon step-1">
                         <i class="fab fa-google-drive"></i>
                     </div>
-                    <div class="step-content">
-                        <h3>1. رفع الفيديو على Google Drive</h3>
-                        <p>
-                            ببساطة، قم برفع الفيديو الخاص بك على مجلد Google Drive المخصص. النظام يراقب المجلد تلقائياً كل دقيقة ويكتشف الملفات الجديدة فوراً.
-                        </p>
-                        <span class="step-badge"><i class="fas fa-clock"></i> مراقبة تلقائية كل دقيقة</span>
+                    <div class="timeline-card">
+                        <span class="step-number">1</span>
+                        <h3>رفع الفيديو على Google Drive</h3>
+                        <p>قم برفع الفيديو الخاص بك إلى مجلد Google Drive المخصص. النظام يراقب المجلد تلقائياً على مدار الساعة ويكتشف أي ملف جديد فور رفعه.</p>
+                        <span class="step-tag"><i class="fas fa-clock"></i> مراقبة تلقائية مستمرة</span>
                     </div>
                 </div>
 
-                <div class="workflow-step">
-                    <div class="step-icon">
-                        <i class="fas fa-robot"></i>
+                <div class="timeline-step animate-on-scroll">
+                    <div class="timeline-icon step-2">
+                        <i class="fas fa-brain"></i>
                     </div>
-                    <div class="step-content">
-                        <h3>2. تحسين SEO بالذكاء الاصطناعي (Gemini 2.0)</h3>
-                        <p>
-                            يستخدم النظام نموذج Gemini 2.0 Flash لإنشاء محتوى محسّن تلقائياً:
-                            <br>• <strong>عنوان جذاب</strong> (65 حرف محسّن للظهور في نتائج البحث)
-                            <br>• <strong>وصف شامل</strong> (300 حرف يشرح محتوى الفيديو)
-                            <br>• <strong>15 تاغ محسّن</strong> للوصول لأكبر عدد من المشاهدين
-                        </p>
-                        <span class="step-badge"><i class="fas fa-magic"></i> ذكاء اصطناعي متقدم</span>
+                    <div class="timeline-card">
+                        <span class="step-number">2</span>
+                        <h3>تحسين SEO بالذكاء الاصطناعي</h3>
+                        <p>يُحلّل النظام الفيديو باستخدام <strong>Google Gemini 2.0 Flash</strong> وينشئ تلقائياً: عنواناً جذاباً محسّناً (65 حرف)، وصفاً شاملاً احترافياً (300 حرف)، و15 وسماً (Tag) مدروساً للوصول الأقصى.</p>
+                        <span class="step-tag"><i class="fas fa-magic"></i> ذكاء اصطناعي متقدم</span>
                     </div>
                 </div>
 
-                <div class="workflow-step">
-                    <div class="step-icon">
-                        <i class="fas fa-check-circle"></i>
+                <div class="timeline-step animate-on-scroll">
+                    <div class="timeline-icon step-3">
+                        <i class="fas fa-check-double"></i>
                     </div>
-                    <div class="step-content">
-                        <h3>3. موافقة عبر Telegram</h3>
-                        <p>
-                            يرسل لك النظام الفيديو عبر Telegram مع خيارين:
-                            <br>✅ <strong>الفيديو جيد: نشر</strong> - للموافقة والنشر الفوري
-                            <br>❌ <strong>يوجد خطأ: إعادة إنشاء</strong> - لإعادة معالجة الفيديو
-                        </p>
-                        <span class="step-badge"><i class="fas fa-shield-alt"></i> تحكم كامل قبل النشر</span>
+                    <div class="timeline-card">
+                        <span class="step-number">3</span>
+                        <h3>المراجعة والموافقة عبر Telegram</h3>
+                        <p>يُرسل لك النظام معاينة كاملة للفيديو والمحتوى المُحسّن عبر بوت Telegram الخاص بك مع خيارين واضحين:</p>
+                        <div class="platforms-mini">
+                            <span>✅ موافقة ونشر</span>
+                            <span>❌ إعادة معالجة</span>
+                        </div>
+                        <span class="step-tag"><i class="fas fa-shield-alt"></i> تحكم كامل قبل النشر</span>
                     </div>
                 </div>
 
-                <div class="workflow-step">
-                    <div class="step-icon">
+                <div class="timeline-step animate-on-scroll">
+                    <div class="timeline-icon step-4">
                         <i class="fas fa-rocket"></i>
                     </div>
-                    <div class="step-content">
-                        <h3>4. النشر التلقائي على جميع المنصات</h3>
-                        <p>
-                            عند الموافقة، يبدأ النظام بالنشر التلقائي والمتزامن على:
-                            <br>🎥 <strong>YouTube</strong> - رفع الفيديو مع SEO كامل
-                            <br>📘 <strong>Facebook</strong> - نشر على الصفحة
-                            <br>📸 <strong>Instagram</strong> - نشر كـ Reels
-                            <br>🐦 <strong>X (Twitter)</strong> - تغريدة مع رابط الفيديو
-                            <br>✈️ <strong>Telegram</strong> - إرسال للقناة/المجموعة
-                            <br>🎵 <strong>TikTok</strong> - نشر الفيديو القصير
-                        </p>
-                        <span class="step-badge"><i class="fas fa-bolt"></i> نشر فوري ومتزامن</span>
+                    <div class="timeline-card">
+                        <span class="step-number">4</span>
+                        <h3>النشر الفوري المتزامن</h3>
+                        <p>عند الموافقة، يُطلق النظام عملية النشر التلقائي المتزامن على جميع المنصات المُفعّلة:</p>
+                        <div class="platforms-mini">
+                            <span><i class="fab fa-youtube" style="color:#ff0000"></i> YouTube</span>
+                            <span><i class="fab fa-facebook" style="color:#1877f2"></i> Facebook</span>
+                            <span><i class="fab fa-instagram" style="color:#e4405f"></i> Instagram Reels</span>
+                            <span><i class="fab fa-x-twitter"></i> X (Twitter)</span>
+                            <span><i class="fab fa-telegram" style="color:#0088cc"></i> Telegram</span>
+                            <span><i class="fab fa-tiktok"></i> TikTok</span>
+                        </div>
+                        <span class="step-tag"><i class="fas fa-bolt"></i> نشر فوري ومتزامن</span>
                     </div>
                 </div>
 
-                <div class="workflow-step">
-                    <div class="step-icon">
-                        <i class="fas fa-link"></i>
-                    </div>
-                    <div class="step-content">
-                        <h3>5. الحصول على روابط المنشورات</h3>
-                        <p>
-                            بعد اكتمال النشر، يجمع النظام روابط جميع المنشورات من كل المنصات ويرسلها لك في تقرير واحد لسهولة المتابعة والمشاركة.
-                        </p>
-                        <span class="step-badge"><i class="fas fa-chart-line"></i> تتبع شامل</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- AI Showcase -->
-        <section class="ai-showcase animate-on-scroll">
-            <h2><i class="fas fa-brain"></i> قوة الذكاء الاصطناعي</h2>
-            <p>
-                نستخدم Google Gemini 2.0 Flash - أحدث نماذج الذكاء الاصطناعي - لضمان أفضل أداء لمحتواك
-            </p>
-            <div class="ai-features">
-                <div class="ai-feature">
-                    <i class="fas fa-heading"></i>
-                    <h3>عناوين جذابة</h3>
-                    <p>عناوين محسّنة للـ SEO تجذب المشاهدين</p>
-                </div>
-                <div class="ai-feature">
-                    <i class="fas fa-align-left"></i>
-                    <h3>وصف احترافي</h3>
-                    <p>وصف شامل يشرح محتوى الفيديو بدقة</p>
-                </div>
-                <div class="ai-feature">
-                    <i class="fas fa-hashtag"></i>
-                    <h3>تاغز ذكية</h3>
-                    <p>15 تاغ مدروس لأقصى وصول</p>
-                </div>
-                <div class="ai-feature">
-                    <i class="fas fa-language"></i>
-                    <h3>لغة عربية فصحى</h3>
-                    <p>محتوى باللغة العربية الفصحى المناسبة</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Features -->
-        <section class="animate-on-scroll">
-            <h2><i class="fas fa-star"></i> المميزات الفريدة</h2>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-sync"></i>
-                    </div>
-                    <h3>نشر متزامن</h3>
-                    <p>نشر الفيديو على 6 منصات في نفس الوقت بدون أي تدخل يدوي، مما يوفر ساعات من العمل اليومي.</p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-cloud-upload-alt"></i>
-                    </div>
-                    <h3>رفع تلقائي</h3>
-                    <p>مجرد رفع الملف على Google Drive والنظام يتولى كل شيء - من التحسين إلى النشر النهائي.</p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-search"></i>
-                    </div>
-                    <h3>SEO محسّن</h3>
-                    <p>كل فيديو يحصل على عنوان ووصف وتاغز محسّنة بالذكاء الاصطناعي لأقصى ظهور في نتائج البحث.</p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-shield-check"></i>
-                    </div>
-                    <h3>نظام موافقة</h3>
-                    <p>معاينة الفيديو والموافقة عليه عبر Telegram قبل النشر لضمان جودة المحتوى دائماً.</p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-history"></i>
-                    </div>
-                    <h3>معالجة ذكية</h3>
-                    <p>النظام ينتظر حتى تكتمل معالجة الفيديو على كل منصة قبل الانتقال للخطوة التالية.</p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-server"></i>
-                    </div>
-                    <h3>تخزين سحابي</h3>
-                    <p>رفع الفيديوهات على ImageKit للتخزين السحابي الآمن وسرعة التحميل العالية.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Benefits for Content Creators -->
-        <section class="animate-on-scroll">
-            <h2><i class="fas fa-gift"></i> كيف يفيد صانع المحتوى؟</h2>
-            <div class="benefits-container">
-                <div class="benefit-item">
-                    <div class="benefit-icon">
-                        <i class="fas fa-clock"></i>
-                    </div>
-                    <div class="benefit-content">
-                        <h4>توفير الوقت الهائل</h4>
-                        <p>بدلاً من قضاء ساعات في رفع ونشر الفيديو على كل منصة، الآن الأمر يستغرق ثوانٍ فقط. وفّر أكثر من 90% من وقتك!</p>
-                    </div>
-                </div>
-
-                <div class="benefit-item">
-                    <div class="benefit-icon">
+                <div class="timeline-step animate-on-scroll">
+                    <div class="timeline-icon step-5">
                         <i class="fas fa-chart-line"></i>
                     </div>
-                    <div class="benefit-content">
-                        <h4>زيادة الوصول والمشاهدات</h4>
-                        <p>النشر على 6 منصات يعني 6 أضعاف الوصول. محتواك سيصل لجمهور أكبر بكثير من النشر على منصة واحدة.</p>
-                    </div>
-                </div>
-
-                <div class="benefit-item">
-                    <div class="benefit-icon">
-                        <i class="fas fa-trophy"></i>
-                    </div>
-                    <div class="benefit-content">
-                        <h4>محتوى محسّن احترافياً</h4>
-                        <p>الذكاء الاصطناعي يضمن أن كل فيديو لديك عنوان ووصف وتاغز احترافية تنافس كبار صناع المحتوى.</p>
-                    </div>
-                </div>
-
-                <div class="benefit-item">
-                    <div class="benefit-icon">
-                        <i class="fas fa-user-check"></i>
-                    </div>
-                    <div class="benefit-content">
-                        <h4>تحكم كامل ومرونة</h4>
-                        <p>أنت من يقرر متى ينشر الفيديو. نظام الموافقة عبر Telegram يعطيك التحكم الكامل قبل النشر النهائي.</p>
-                    </div>
-                </div>
-
-                <div class="benefit-item">
-                    <div class="benefit-icon">
-                        <i class="fas fa-redo"></i>
-                    </div>
-                    <div class="benefit-content">
-                        <h4>إمكانية إعادة المعالجة</h4>
-                        <p>إذا وجدت خطأ في الفيديو، يمكنك بسهولة طلب إعادة معالجته دون البدء من الصفر.</p>
-                    </div>
-                </div>
-
-                <div class="benefit-item">
-                    <div class="benefit-icon">
-                        <i class="fas fa-mobile-alt"></i>
-                    </div>
-                    <div class="benefit-content">
-                        <h4>إدارة من الموبايل</h4>
-                        <p>تحكم في كل شيء من هاتفك عبر Telegram - لا حاجة للجلوس أمام الكمبيوتر ساعات طويلة.</p>
-                    </div>
-                </div>
-
-                <div class="benefit-item">
-                    <div class="benefit-icon">
-                        <i class="fas fa-dollar-sign"></i>
-                    </div>
-                    <div class="benefit-content">
-                        <h4>زيادة الدخل</h4>
-                        <p>المزيد من المشاهدات = المزيد من الأرباح. انشر على 6 منصات واحصل على 6 مصادر دخل من نفس المحتوى!</p>
-                    </div>
-                </div>
-
-                <div class="benefit-item">
-                    <div class="benefit-icon">
-                        <i class="fas fa-heartbeat"></i>
-                    </div>
-                    <div class="benefit-content">
-                        <h4>تقليل الضغط والإرهاق</h4>
-                        <p>لا مزيد من القلق حول النشر اليومي. النظام يعمل نيابةً عنك ويتيح لك التركيز على إبداع المحتوى.</p>
-                    </div>
-                </div>
-
-                <div class="benefit-item">
-                    <div class="benefit-icon">
-                        <i class="fas fa-calendar-check"></i>
-                    </div>
-                    <div class="benefit-content">
-                        <h4>انتظام في النشر</h4>
-                        <p>لن تفوت أي يوم نشر بعد الآن. النظام التلقائي يضمن انتظامك وبالتالي نمو قناتك باستمرار.</p>
-                    </div>
-                </div>
-
-                <div class="benefit-item">
-                    <div class="benefit-icon">
-                        <i class="fas fa-globe"></i>
-                    </div>
-                    <div class="benefit-content">
-                        <h4>تواجد عالمي</h4>
-                        <p>محتواك سيكون متاحاً على جميع المنصات الرئيسية، مما يزيد من فرص اكتشافك من جمهور عالمي.</p>
-                    </div>
-                </div>
-
-                <div class="benefit-item">
-                    <div class="benefit-icon">
-                        <i class="fas fa-graduation-cap"></i>
-                    </div>
-                    <div class="benefit-content">
-                        <h4>التعلم من الأفضل</h4>
-                        <p>الذكاء الاصطناعي يستخدم أفضل ممارسات SEO ويطبقها على محتواك تلقائياً - كأنك تعمل مع خبير تسويق!</p>
-                    </div>
-                </div>
-
-                <div class="benefit-item">
-                    <div class="benefit-icon">
-                        <i class="fas fa-link"></i>
-                    </div>
-                    <div class="benefit-content">
-                        <h4>روابط منظمة</h4>
-                        <p>احصل على جميع روابط منشوراتك في مكان واحد لسهولة المشاركة والترويج عبر القنوات الأخرى.</p>
+                    <div class="timeline-card">
+                        <span class="step-number">5</span>
+                        <h3>تقرير شامل بروابط المنشورات</h3>
+                        <p>بعد اكتمال النشر بنجاح، يجمع النظام جميع روابط المنشورات من كل المنصات ويُرسلها لك في تقرير واحد منظم لسهولة المتابعة والمشاركة والتحليل.</p>
+                        <span class="step-tag"><i class="fas fa-link"></i> تتبع وتحليل شامل</span>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Stats -->
-        <section class="stats-section animate-on-scroll">
-            <h2 style="color: white;"><i class="fas fa-chart-bar"></i> إحصائيات مذهلة</h2>
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <i class="fas fa-save"></i>
-                    <span class="number">5+</span>
-                    <span class="label">ساعات موفرة يومياً</span>
+    <!-- AI SECTION -->
+    <section class="section ai-section" id="ai">
+        <div class="ai-bg-glow glow-1"></div>
+        <div class="ai-bg-glow glow-2"></div>
+        <div class="container">
+            <div class="section-header animate-on-scroll">
+                <span class="section-label"><i class="fas fa-brain"></i> الذكاء الاصطناعي</span>
+                <h2 class="section-title">محتوى مُحسّن بقوة Gemini 2.0</h2>
+                <p class="section-subtitle">نستخدم أحدث نماذج Google للذكاء الاصطناعي لضمان أن كل جزء من محتواك مُحسّن لأقصى أداء وظهور</p>
+            </div>
+            <div class="ai-features-grid animate-on-scroll">
+                <div class="ai-card">
+                    <div class="ai-card-icon"><i class="fas fa-heading"></i></div>
+                    <h3>عناوين تجذب النقرات</h3>
+                    <p>عناوين مدروسة ومحسّنة لمحركات البحث تحقق أعلى معدل نقر (CTR) وتجذب انتباه المشاهد فوراً</p>
                 </div>
-                <div class="stat-card">
-                    <i class="fas fa-users"></i>
-                    <span class="number">6×</span>
-                    <span class="label">زيادة في الوصول</span>
+                <div class="ai-card">
+                    <div class="ai-card-icon"><i class="fas fa-file-alt"></i></div>
+                    <h3>أوصاف احترافية</h3>
+                    <p>وصف شامل يشرح محتوى الفيديو بدقة ويتضمن الكلمات المفتاحية المناسبة لتحسين الترتيب في نتائج البحث</p>
                 </div>
-                <div class="stat-card">
-                    <i class="fas fa-percentage"></i>
-                    <span class="number">100%</span>
-                    <span class="label">أتمتة كاملة</span>
+                <div class="ai-card">
+                    <div class="ai-card-icon"><i class="fas fa-hashtag"></i></div>
+                    <h3>وسوم (Tags) ذكية</h3>
+                    <p>15 وسماً مدروساً بعناية يغطي الكلمات المفتاحية الرئيسية والطويلة لأقصى وصول ممكن في نتائج البحث</p>
                 </div>
-                <div class="stat-card">
-                    <i class="fas fa-rocket"></i>
-                    <span class="number">0</span>
-                    <span class="label">جهد يدوي مطلوب</span>
+                <div class="ai-card">
+                    <div class="ai-card-icon"><i class="fas fa-language"></i></div>
+                    <h3>لغة عربية فصحى</h3>
+                    <p>محتوى مكتوب بلغة عربية فصحى سليمة ومناسبة للجمهور المستهدف مع مراعاة الأسلوب الاحترافي</p>
+                </div>
+                <div class="ai-card">
+                    <div class="ai-card-icon"><i class="fas fa-search-plus"></i></div>
+                    <h3>تحليل المحتوى</h3>
+                    <p>يُحلّل الذكاء الاصطناعي محتوى الفيديو لفهم السياق والموضوع وإنشاء بيانات وصفية دقيقة ومطابقة</p>
+                </div>
+                <div class="ai-card">
+                    <div class="ai-card-icon"><i class="fas fa-sliders-h"></i></div>
+                    <h3>تخصيص لكل منصة</h3>
+                    <p>يُكيّف المحتوى تلقائياً ليتوافق مع متطلبات ومواصفات كل منصة على حدة لتحقيق أفضل أداء</p>
                 </div>
             </div>
-        </section>
-    </div>
-
-   <!-- Footer -->
-<footer>
-    <div class="footer-content">
-        <div class="footer-branding">
-            <h3><i class="fas fa-rocket"></i> Social Media Publishing</h3>
-            <p>نظام النشر الآلي الذكي لجميع منصات التواصل الاجتماعي</p>
-        </div>
-        
-        <div class="footer-links">
-            <a href="Privacy%20Policy.html">
-                <i class="fas fa-shield-alt"></i>
-                سياسة الخصوصية
-            </a>
-            <a href="Terms%20%26%20Conditions.html">
-                <i class="fas fa-file-contract"></i>
-                الشروط والأحكام
-            </a>
-            <a href="https://www.myroqia.com/" target="_blank">
-                <i class="fas fa-globe"></i>
-                موقع رقيتي للرقية الشرعية
-            </a>
-        </div>
-        
-        <div class="footer-divider"></div>
-        
-        <div class="footer-bottom">
-            <p><i class="fas fa-code"></i>تم انشائه بواسطة: Abdullah N8n</p>
-            <p style="margin-top: 1rem; color: #4facfe;">
-                <i class="fas fa-users"></i> نعمل لصالح موقع رقيتي للرقية الشرعية
-            </p>
-            <p style="margin-top: 0.5rem;">
-                <i class="fas fa-map-marker-alt"></i> المملكة العربية السعودية - الرياض - 29910
-            </p>
-            <div class="footer-tech">
-                <span class="tech-badge">
-                    <i class="fas fa-robot"></i>
-                    Gemini 2.0 Flash
-                </span>
-                <span class="tech-badge">
-                    <i class="fas fa-network-wired"></i>
-                    n8n Automation
-                </span>
-                <span class="tech-badge">
-                    <i class="fas fa-cloud"></i>
-                    Cloud Storage
-                </span>
+            <div class="ai-showcase-banner animate-on-scroll">
+                <div class="banner-text">
+                    <h3><i class="fas fa-robot"></i> مدعوم بـ Google Gemini 2.0 Flash</h3>
+                    <p>أسرع وأدق نماذج الذكاء الاصطناعي لمعالجة المحتوى متعدد الوسائط</p>
+                </div>
+                <div class="banner-stats">
+                    <div class="banner-stat">
+                        <span class="num">65</span>
+                        <span class="lbl">حرف للعنوان</span>
+                    </div>
+                    <div class="banner-stat">
+                        <span class="num">300</span>
+                        <span class="lbl">حرف للوصف</span>
+                    </div>
+                    <div class="banner-stat">
+                        <span class="num">15</span>
+                        <span class="lbl">وسم محسّن</span>
+                    </div>
+                </div>
             </div>
-            <p style="margin-top: 1.5rem; opacity: 0.7;">
-                <i class="fas fa-heart" style="color: #ec4899;"></i> 
-                Social Media Publishing System © 2025
-            </p>
         </div>
-    </div>
-</footer>
+    </section>
 
+    <!-- FEATURES -->
+    <section class="section features-section" id="features">
+        <div class="container">
+            <div class="section-header animate-on-scroll">
+                <span class="section-label"><i class="fas fa-star"></i> المميزات</span>
+                <h2 class="section-title">لماذا تختار نظامنا؟</h2>
+                <p class="section-subtitle">مجموعة شاملة من المميزات المتقدمة التي تجعل عملية النشر أسهل وأسرع وأكثر احترافية</p>
+            </div>
+            <div class="features-grid animate-on-scroll">
+                <div class="feature-card">
+                    <div class="feature-icon-box"><i class="fas fa-sync-alt"></i></div>
+                    <h3>نشر متزامن فوري</h3>
+                    <p>انشر الفيديو على 6 منصات في نفس اللحظة بدون أي تدخل يدوي — وفّر ساعات من العمل المتكرر يومياً.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon-box"><i class="fas fa-cloud-upload-alt"></i></div>
+                    <h3>رفع تلقائي بالكامل</h3>
+                    <p>فقط ارفع ملفك على Google Drive والنظام يتولى كل شيء من التحسين والمعالجة إلى النشر النهائي.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon-box"><i class="fas fa-search"></i></div>
+                    <h3>SEO محسّن بالذكاء الاصطناعي</h3>
+                    <p>كل فيديو يحصل على عنوان ووصف ووسوم محسّنة تلقائياً لأقصى ظهور في نتائج البحث على كل منصة.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon-box"><i class="fas fa-user-shield"></i></div>
+                    <h3>نظام موافقة ذكي</h3>
+                    <p>راجع وتحقق من الفيديو والمحتوى عبر Telegram قبل النشر — تحكم كامل مع مرونة إعادة المعالجة.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon-box"><i class="fas fa-server"></i></div>
+                    <h3>تخزين سحابي سريع</h3>
+                    <p>رفع وتخزين الفيديوهات على ImageKit CDN للتخزين السحابي الآمن وسرعة تحميل فائقة حول العالم.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon-box"><i class="fas fa-history"></i></div>
+                    <h3>معالجة ذكية تدريجية</h3>
+                    <p>ينتظر النظام اكتمال المعالجة على كل منصة قبل الانتقال للتالية لضمان نجاح النشر بنسبة 100%.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon-box"><i class="fas fa-mobile-alt"></i></div>
+                    <h3>إدارة كاملة من الجوال</h3>
+                    <p>تحكم في كل شيء من هاتفك عبر Telegram — لا حاجة للجلوس أمام الحاسب. ارفع، راجع، وانشر من أي مكان.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon-box"><i class="fas fa-bell"></i></div>
+                    <h3>إشعارات فورية</h3>
+                    <p>تلقَّ إشعارات فورية بكل خطوة — من اكتشاف الفيديو إلى اكتمال النشر مع روابط جميع المنشورات.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon-box"><i class="fas fa-lock"></i></div>
+                    <h3>أمان وخصوصية</h3>
+                    <p>جميع البيانات والحسابات مشفّرة ومحمية بأعلى معايير الأمان. لا نخزّن أي معلومات حساسة.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<!-- هنا يوضع الجزء الي بعده -->
+    <!-- BENEFITS -->
+    <section class="section benefits-section" id="benefits">
+        <div class="container">
+            <div class="section-header animate-on-scroll">
+                <span class="section-label"><i class="fas fa-gift"></i> الفوائد</span>
+                <h2 class="section-title">كيف يُحدث النظام فرقاً حقيقياً؟</h2>
+                <p class="section-subtitle">اكتشف كيف يساعدك نظام النشر الآلي على تنمية حضورك الرقمي وتحقيق نتائج استثنائية</p>
+            </div>
+            <div class="benefits-grid animate-on-scroll">
+                <div class="benefit-card">
+                    <div class="benefit-card-header">
+                        <div class="benefit-icon-wrap green">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <h3>توفير الوقت الهائل</h3>
+                    </div>
+                    <p>بدلاً من قضاء ساعات في رفع ونشر الفيديو على كل منصة بشكل يدوي، الآن الأمر يتم في ثوانٍ معدودة. وفّر أكثر من <strong>90% من وقتك</strong> وركّز على الإبداع.</p>
+                    <div class="benefit-metric">
+                        <span class="metric-value">+5 ساعات</span>
+                        <span class="metric-label">توفير يومي</span>
+                    </div>
+                </div>
+
+                <div class="benefit-card">
+                    <div class="benefit-card-header">
+                        <div class="benefit-icon-wrap blue">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3>مضاعفة الوصول والمشاهدات</h3>
+                    </div>
+                    <p>النشر على 6 منصات يعني <strong>6 أضعاف الوصول</strong>. محتواك سيصل لجمهور أوسع بكثير مقارنة بالنشر على منصة واحدة فقط.</p>
+                    <div class="benefit-metric">
+                        <span class="metric-value">6× وصول</span>
+                        <span class="metric-label">زيادة مضمونة</span>
+                    </div>
+                </div>
+
+                <div class="benefit-card">
+                    <div class="benefit-card-header">
+                        <div class="benefit-icon-wrap purple">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <h3>محتوى احترافي تنافسي</h3>
+                    </div>
+                    <p>الذكاء الاصطناعي يضمن حصول كل فيديو على عنوان ووصف ووسوم احترافية تنافس أفضل صنّاع المحتوى في مجالك.</p>
+                    <div class="benefit-metric">
+                        <span class="metric-value">AI SEO</span>
+                        <span class="metric-label">تحسين تلقائي</span>
+                    </div>
+                </div>
+
+                <div class="benefit-card">
+                    <div class="benefit-card-header">
+                        <div class="benefit-icon-wrap orange">
+                            <i class="fas fa-dollar-sign"></i>
+                        </div>
+                        <h3>زيادة مصادر الدخل</h3>
+                    </div>
+                    <p>المزيد من المنصات = المزيد من المشاهدات = <strong>المزيد من الأرباح</strong>. احصل على مصادر دخل متعددة من نفس المحتوى بدون جهد إضافي.</p>
+                    <div class="benefit-metric">
+                        <span class="metric-value">6 مصادر</span>
+                        <span class="metric-label">دخل متنوع</span>
+                    </div>
+                </div>
+
+                <div class="benefit-card">
+                    <div class="benefit-card-header">
+                        <div class="benefit-icon-wrap teal">
+                            <i class="fas fa-user-check"></i>
+                        </div>
+                        <h3>تحكم كامل ومرونة</h3>
+                    </div>
+                    <p>أنت من يقرر متى وكيف يُنشر الفيديو. نظام الموافقة عبر Telegram يمنحك <strong>التحكم الكامل</strong> مع إمكانية إعادة المعالجة في أي وقت.</p>
+                    <div class="benefit-metric">
+                        <span class="metric-value">100%</span>
+                        <span class="metric-label">تحكم كامل</span>
+                    </div>
+                </div>
+
+                <div class="benefit-card">
+                    <div class="benefit-card-header">
+                        <div class="benefit-icon-wrap pink">
+                            <i class="fas fa-heartbeat"></i>
+                        </div>
+                        <h3>تقليل الضغط والإرهاق</h3>
+                    </div>
+                    <p>لا مزيد من القلق حول النشر اليومي المتكرر. النظام يعمل نيابةً عنك ويتيح لك <strong>التركيز على صناعة المحتوى الإبداعي</strong>.</p>
+                    <div class="benefit-metric">
+                        <span class="metric-value">0 قلق</span>
+                        <span class="metric-label">راحة بال</span>
+                    </div>
+                </div>
+
+                <div class="benefit-card">
+                    <div class="benefit-card-header">
+                        <div class="benefit-icon-wrap indigo">
+                            <i class="fas fa-calendar-check"></i>
+                        </div>
+                        <h3>انتظام واستمرارية</h3>
+                    </div>
+                    <p>لن تفوت أي يوم نشر بعد الآن. النظام التلقائي يضمن <strong>انتظامك في النشر</strong> مما يعزز خوارزميات المنصات لصالحك ويُسرّع نمو قنواتك.</p>
+                    <div class="benefit-metric">
+                        <span class="metric-value">365 يوم</span>
+                        <span class="metric-label">نشر مستمر</span>
+                    </div>
+                </div>
+
+                <div class="benefit-card">
+                    <div class="benefit-card-header">
+                        <div class="benefit-icon-wrap cyan">
+                            <i class="fas fa-globe-americas"></i>
+                        </div>
+                        <h3>تواجد عالمي متكامل</h3>
+                    </div>
+                    <p>محتواك سيكون متاحاً على <strong>جميع المنصات الرئيسية</strong>، مما يزيد من فرص اكتشافك من جمهور عالمي متنوع ويعزز علامتك التجارية.</p>
+                    <div class="benefit-metric">
+                        <span class="metric-value">عالمي</span>
+                        <span class="metric-label">وصول بلا حدود</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STATS SECTION -->
+    <section class="section stats-showcase" id="stats">
+        <div class="container">
+            <div class="stats-banner animate-on-scroll">
+                <div class="section-header" style="margin-bottom: 3rem;">
+                    <span class="section-label" style="background: rgba(255,255,255,0.15); color: white;"><i class="fas fa-chart-bar"></i> إحصائيات الأداء</span>
+                    <h2 class="section-title" style="color: white;">أرقام تتحدث عن نفسها</h2>
+                    <p class="section-subtitle" style="color: rgba(255,255,255,0.75);">نتائج حقيقية يحققها النظام لصنّاع المحتوى يومياً</p>
+                </div>
+                <div class="stats-grid-new">
+                    <div class="stat-item-new">
+                        <div class="stat-icon-wrap"><i class="fas fa-save"></i></div>
+                        <span class="stat-big-number">5+</span>
+                        <span class="stat-desc">ساعات موفرة يومياً</span>
+                    </div>
+                    <div class="stat-item-new">
+                        <div class="stat-icon-wrap"><i class="fas fa-users"></i></div>
+                        <span class="stat-big-number">6×</span>
+                        <span class="stat-desc">مضاعفة الوصول</span>
+                    </div>
+                    <div class="stat-item-new">
+                        <div class="stat-icon-wrap"><i class="fas fa-percentage"></i></div>
+                        <span class="stat-big-number">100%</span>
+                        <span class="stat-desc">أتمتة كاملة</span>
+                    </div>
+                    <div class="stat-item-new">
+                        <div class="stat-icon-wrap"><i class="fas fa-hand-paper"></i></div>
+                        <span class="stat-big-number">0</span>
+                        <span class="stat-desc">جهد يدوي مطلوب</span>
+                    </div>
+                    <div class="stat-item-new">
+                        <div class="stat-icon-wrap"><i class="fas fa-clock"></i></div>
+                        <span class="stat-big-number">24/7</span>
+                        <span class="stat-desc">عمل بلا توقف</span>
+                    </div>
+                    <div class="stat-item-new">
+                        <div class="stat-icon-wrap"><i class="fas fa-shield-alt"></i></div>
+                        <span class="stat-big-number">99.9%</span>
+                        <span class="stat-desc">نسبة استقرار النظام</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ SECTION -->
+    <section class="section faq-section" id="faq">
+        <div class="container">
+            <div class="section-header animate-on-scroll">
+                <span class="section-label"><i class="fas fa-question-circle"></i> الأسئلة الشائعة</span>
+                <h2 class="section-title">كل ما تحتاج معرفته</h2>
+                <p class="section-subtitle">إجابات واضحة ومباشرة على أكثر الأسئلة شيوعاً حول نظام النشر الآلي</p>
+            </div>
+            <div class="faq-container animate-on-scroll">
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span>هل أحتاج خبرة تقنية لاستخدام النظام؟</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>لا أبداً! النظام مُصمم ليكون بسيطاً للغاية. كل ما عليك فعله هو رفع الفيديو على Google Drive ثم الموافقة على النشر عبر Telegram. لا حاجة لأي معرفة تقنية أو برمجية.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span>ما المنصات المدعومة حالياً؟</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>يدعم النظام حالياً: YouTube، Facebook، Instagram (Reels)، X (Twitter)، Telegram، وTikTok. ونعمل باستمرار على إضافة منصات جديدة مثل LinkedIn وSnapchat قريباً.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span>كيف يعمل الذكاء الاصطناعي في تحسين المحتوى؟</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>يستخدم النظام Google Gemini 2.0 Flash لتحليل محتوى الفيديو وفهم سياقه، ثم ينشئ تلقائياً عنواناً جذاباً (65 حرف)، ووصفاً شاملاً (300 حرف)، و15 وسماً (Tag) محسّناً — كل ذلك بالعربية الفصحى ومُحسّن لمحركات البحث.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span>هل يمكنني مراجعة المحتوى قبل النشر؟</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>نعم بالتأكيد! النظام يرسل لك معاينة كاملة عبر Telegram قبل النشر مع خيارين: الموافقة والنشر الفوري، أو طلب إعادة المعالجة. أنت تتحكم بشكل كامل في كل ما يُنشر.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span>ما أنواع الملفات المدعومة؟</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>يدعم النظام جميع صيغ الفيديو الشائعة مثل MP4، MOV، AVI، MKV وغيرها. يُفضل استخدام صيغة MP4 بجودة عالية للحصول على أفضل نتائج على جميع المنصات.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span>هل بيانات حساباتي آمنة؟</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>نعم، نأخذ الأمان على محمل الجد. جميع بيانات الاتصال بالمنصات مشفّرة ومحمية. نستخدم بروتوكولات OAuth 2.0 المعتمدة ولا نخزّن كلمات المرور أبداً. يتم التواصل مع المنصات عبر APIs الرسمية فقط.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span>ماذا يحدث إذا فشل النشر على منصة معينة؟</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>النظام مُصمم بآلية إعادة المحاولة التلقائية. في حال فشل النشر على أي منصة، يعيد المحاولة تلقائياً حتى 3 مرات. كما يُرسل لك إشعاراً فورياً عبر Telegram بحالة النشر على كل منصة.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span>هل يمكنني اختيار منصات محددة للنشر؟</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>نعم، يمكنك تفعيل أو تعطيل أي منصة حسب رغبتك. النظام مرن ويسمح لك بتخصيص قائمة المنصات المستهدفة لكل فيديو أو كإعداد افتراضي دائم.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA SECTION -->
+    <section class="section cta-section" id="contact">
+        <div class="container">
+            <div class="cta-card animate-on-scroll">
+                <div class="cta-bg-shapes">
+                    <div class="cta-shape cta-shape-1"></div>
+                    <div class="cta-shape cta-shape-2"></div>
+                </div>
+                <div class="cta-content">
+                    <h2>جاهز لأتمتة عملية النشر؟</h2>
+                    <p>ابدأ اليوم واستمتع بنشر محتواك على جميع المنصات بضغطة زر واحدة. وفّر وقتك وضاعف وصولك مع قوة الذكاء الاصطناعي.</p>
+                    <div class="cta-buttons">
+                        <a href="mailto:contact@smpsystem.com" class="btn btn-white">
+                            <i class="fas fa-envelope"></i>
+                            تواصل عبر البريد
+                        </a>
+                        <a href="https://t.me/" target="_blank" class="btn btn-outline-white">
+                            <i class="fab fa-telegram"></i>
+                            تواصل عبر Telegram
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col footer-about">
+                    <div class="footer-brand">
+                        <div class="brand-logo"><i class="fas fa-paper-plane"></i></div>
+                        <div>
+                            <h3>SMP System</h3>
+                            <p class="footer-tagline">Social Media Publishing</p>
+                        </div>
+                    </div>
+                    <p class="footer-desc">نظام أتمتة ذكي ومتكامل لنشر المحتوى على جميع منصات التواصل الاجتماعي باستخدام أحدث تقنيات الذكاء الاصطناعي.</p>
+                    <div class="footer-social">
+                        <a href="#" aria-label="Twitter"><i class="fab fa-x-twitter"></i></a>
+                        <a href="#" aria-label="Telegram"><i class="fab fa-telegram"></i></a>
+                        <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                        <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <h4>روابط سريعة</h4>
+                    <ul>
+                        <li><a href="#platforms"><i class="fas fa-chevron-left"></i> المنصات المدعومة</a></li>
+                        <li><a href="#how-it-works"><i class="fas fa-chevron-left"></i> آلية العمل</a></li>
+                        <li><a href="#ai"><i class="fas fa-chevron-left"></i> الذكاء الاصطناعي</a></li>
+                        <li><a href="#features"><i class="fas fa-chevron-left"></i> المميزات</a></li>
+                        <li><a href="#benefits"><i class="fas fa-chevron-left"></i> الفوائد</a></li>
+                        <li><a href="#faq"><i class="fas fa-chevron-left"></i> الأسئلة الشائعة</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>قانوني</h4>
+                    <ul>
+                        <li><a href="Privacy%20Policy.html"><i class="fas fa-chevron-left"></i> سياسة الخصوصية</a></li>
+                        <li><a href="Terms%20%26%20Conditions.html"><i class="fas fa-chevron-left"></i> الشروط والأحكام</a></li>
+                    </ul>
+                    <h4 style="margin-top: 2rem;">التقنيات المستخدمة</h4>
+                    <div class="footer-tech-stack">
+                        <span><i class="fas fa-robot"></i> Gemini 2.0 Flash</span>
+                        <span><i class="fas fa-network-wired"></i> n8n Automation</span>
+                        <span><i class="fas fa-cloud"></i> ImageKit CDN</span>
+                        <span><i class="fab fa-google-drive"></i> Google Drive API</span>
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <h4>تواصل معنا</h4>
+                    <div class="footer-contact-info">
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>contact@smpsystem.com</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>المملكة العربية السعودية</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-code"></i>
+                            <span>تطوير: Abdullah N8n</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-divider"></div>
+
+            <div class="footer-bottom">
+                <p>© 2026 SMP System — Social Media Publishing. جميع الحقوق محفوظة.</p>
+                <p class="footer-made">
+                    صُنع بـ <i class="fas fa-heart" style="color: #ef4444;"></i> في المملكة العربية السعودية
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- BACK TO TOP -->
+    <button class="back-to-top" id="backToTop" aria-label="العودة للأعلى">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- EXTRA STYLES FOR PART 2 -->
+    <style>
+        /* ===== BENEFITS ===== */
+        .benefits-section {
+            background: var(--light);
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .benefit-card {
+            background: white;
+            padding: 2rem 2.5rem;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--light-3);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary-light);
+        }
+
+        .benefit-card-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .benefit-icon-wrap {
+            min-width: 48px;
+            height: 48px;
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            color: white;
+        }
+
+        .benefit-icon-wrap.green { background: linear-gradient(135deg, #10b981, #059669); }
+        .benefit-icon-wrap.blue { background: linear-gradient(135deg, #3b82f6, #2563eb); }
+        .benefit-icon-wrap.purple { background: linear-gradient(135deg, #8b5cf6, #7c3aed); }
+        .benefit-icon-wrap.orange { background: linear-gradient(135deg, #f59e0b, #d97706); }
+        .benefit-icon-wrap.teal { background: linear-gradient(135deg, #14b8a6, #0d9488); }
+        .benefit-icon-wrap.pink { background: linear-gradient(135deg, #ec4899, #db2777); }
+        .benefit-icon-wrap.indigo { background: linear-gradient(135deg, #6366f1, #4f46e5); }
+        .benefit-icon-wrap.cyan { background: linear-gradient(135deg, #06b6d4, #0891b2); }
+
+        .benefit-card h3 {
+            font-size: 1.2rem;
+            color: var(--dark);
+            font-weight: 800;
+        }
+
+        .benefit-card p {
+            color: var(--gray);
+            line-height: 1.8;
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+
+        .benefit-metric {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: var(--light);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            border: 1px solid var(--light-3);
+        }
+
+        .metric-value {
+            font-weight: 900;
+            color: var(--primary);
+            font-size: 0.95rem;
+        }
+
+        .metric-label {
+            color: var(--gray);
+            font-size: 0.8rem;
+        }
+
+        /* ===== STATS SHOWCASE ===== */
+        .stats-showcase {
+            background: var(--dark);
+            padding: 0;
+        }
+
+        .stats-banner {
+            background: var(--gradient-primary);
+            padding: 5rem 3rem;
+            border-radius: var(--radius-xl);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stats-banner::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                radial-gradient(circle at 20% 80%, rgba(255,255,255,0.06) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255,255,255,0.06) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .stats-grid-new {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+            gap: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .stat-item-new {
+            text-align: center;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            padding: 2rem 1.5rem;
+            border-radius: var(--radius-lg);
+            border: 1px solid rgba(255,255,255,0.15);
+            transition: var(--transition);
+        }
+
+        .stat-item-new:hover {
+            background: rgba(255,255,255,0.18);
+            transform: scale(1.05);
+        }
+
+        .stat-icon-wrap {
+            width: 50px;
+            height: 50px;
+            margin: 0 auto 1rem;
+            background: rgba(255,255,255,0.15);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            color: white;
+        }
+
+        .stat-big-number {
+            font-size: 2.8rem;
+            font-weight: 900;
+            color: white;
+            display: block;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-desc {
+            color: rgba(255,255,255,0.8);
+            font-size: 0.95rem;
+        }
+
+        /* ===== FAQ ===== */
+        .faq-section {
+            background: white;
+        }
+
+        .faq-container {
+            max-width: 850px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: var(--light);
+            border: 1px solid var(--light-3);
+            border-radius: var(--radius-md);
+            margin-bottom: 1rem;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .faq-item:hover {
+            border-color: var(--primary-light);
+        }
+
+        .faq-item.active {
+            border-color: var(--primary);
+            box-shadow: var(--shadow-md);
+        }
+
+        .faq-question {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.25rem 1.75rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-family: 'Cairo', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--dark);
+            text-align: right;
+            gap: 1rem;
+            transition: var(--transition);
+        }
+
+        .faq-question:hover {
+            color: var(--primary);
+        }
+
+        .faq-question i {
+            font-size: 0.85rem;
+            color: var(--gray);
+            transition: transform 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+            color: var(--primary);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.4s ease;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 300px;
+        }
+
+        .faq-answer p {
+            padding: 0 1.75rem 1.5rem;
+            color: var(--gray);
+            line-height: 1.9;
+            font-size: 1rem;
+        }
+
+        /* ===== CTA SECTION ===== */
+        .cta-section {
+            background: var(--light);
+            padding: 4rem 0 6rem;
+        }
+
+        .cta-card {
+            background: var(--gradient-primary);
+            border-radius: var(--radius-xl);
+            padding: 5rem 3rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-bg-shapes {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+        }
+
+        .cta-shape {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.15;
+        }
+
+        .cta-shape-1 {
+            width: 400px;
+            height: 400px;
+            background: white;
+            top: -150px;
+            right: -100px;
+        }
+
+        .cta-shape-2 {
+            width: 300px;
+            height: 300px;
+            background: #4facfe;
+            bottom: -100px;
+            left: -50px;
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-content h2 {
+            font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+            color: white;
+            font-weight: 900;
+            margin-bottom: 1rem;
+        }
+
+        .cta-content p {
+            font-size: 1.2rem;
+            color: rgba(255,255,255,0.85);
+            max-width: 650px;
+            margin: 0 auto 2.5rem;
+            line-height: 1.9;
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-white {
+            background: white;
+            color: var(--primary-dark);
+            font-weight: 800;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .btn-white:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+        }
+
+        .btn-outline-white {
+            background: transparent;
+            color: white;
+            border: 2px solid rgba(255,255,255,0.4);
+        }
+
+        .btn-outline-white:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: white;
+            transform: translateY(-3px);
+        }
+
+        /* ===== FOOTER ===== */
+        .main-footer {
+            background: var(--dark);
+            color: white;
+            padding: 5rem 0 2rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-brand .brand-logo {
+            width: 45px;
+            height: 45px;
+            background: var(--gradient-primary);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .footer-brand h3 {
+            font-size: 1.4rem;
+            font-weight: 900;
+            margin: 0;
+            line-height: 1;
+        }
+
+        .footer-tagline {
+            font-size: 0.8rem;
+            color: var(--gray-light);
+            margin: 0;
+        }
+
+        .footer-desc {
+            color: var(--gray-light);
+            line-height: 1.8;
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .footer-social a {
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.08);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray-light);
+            font-size: 1.1rem;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .footer-social a:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .footer-col h4 {
+            font-size: 1.1rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+
+        .footer-col ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-col ul a {
+            color: var(--gray-light);
+            text-decoration: none;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: var(--transition);
+        }
+
+        .footer-col ul a:hover {
+            color: white;
+            transform: translateX(-5px);
+        }
+
+        .footer-col ul a i {
+            font-size: 0.65rem;
+        }
+
+        .footer-tech-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .footer-tech-stack span {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--gray-light);
+            font-size: 0.85rem;
+            background: rgba(255,255,255,0.05);
+            padding: 0.4rem 0.75rem;
+            border-radius: var(--radius-sm);
+        }
+
+        .footer-contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--gray-light);
+            font-size: 0.9rem;
+        }
+
+        .contact-item i {
+            width: 35px;
+            height: 35px;
+            background: rgba(255,255,255,0.05);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            color: var(--primary-light);
+            flex-shrink: 0;
+        }
+
+        .footer-divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.1), transparent);
+            margin: 3rem 0 2rem;
+        }
+
+        .footer-bottom {
+            text-align: center;
+        }
+
+        .footer-bottom p {
+            color: var(--gray-light);
+            font-size: 0.9rem;
+            margin: 0.3rem 0;
+        }
+
+        .footer-made {
+            margin-top: 0.5rem;
+            color: var(--gray) !important;
+            font-size: 0.85rem !important;
+        }
+
+        /* ===== BACK TO TOP ===== */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            left: 2rem;
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: var(--shadow-primary);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: var(--transition);
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(99,102,241,0.4);
+        }
+
+        /* ===== RESPONSIVE ADDITIONS ===== */
+        @media (max-width: 1024px) {
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid-new {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .stats-banner {
+                padding: 3rem 1.5rem;
+            }
+
+            .cta-card {
+                padding: 3rem 1.5rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .cta-buttons .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 2.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .stats-grid-new {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+
+            .stat-big-number {
+                font-size: 2rem;
+            }
+
+            .stat-item-new {
+                padding: 1.5rem 1rem;
+            }
+        }
+    </style>
+
+    <!-- JAVASCRIPT -->
     <script>
-        // Animate on Scroll
-        const animateOnScroll = () => {
-            const elements = document.querySelectorAll('.animate-on-scroll');
-            
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                    }
-                });
-            }, {
-                threshold: 0.1
-            });
-            
-            elements.forEach(element => {
-                observer.observe(element);
-            });
-        };
-        
-        // Initialize
-        window.addEventListener('DOMContentLoaded', () => {
-            animateOnScroll();
+        // ===== Navbar Scroll Effect =====
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
         });
-        
-        // Platform cards animation
+
+        // ===== Mobile Toggle =====
+        const mobileToggle = document.getElementById('mobileToggle');
+        const navLinks = document.querySelector('.navbar-links');
+        let mobileMenuOpen = false;
+
+        mobileToggle.addEventListener('click', () => {
+            mobileMenuOpen = !mobileMenuOpen;
+            if (mobileMenuOpen) {
+                navLinks.style.display = 'flex';
+                navLinks.style.flexDirection = 'column';
+                navLinks.style.position = 'absolute';
+                navLinks.style.top = '72px';
+                navLinks.style.left = '0';
+                navLinks.style.right = '0';
+                navLinks.style.background = 'rgba(15, 23, 42, 0.98)';
+                navLinks.style.padding = '1.5rem';
+                navLinks.style.gap = '0.5rem';
+                navLinks.style.borderTop = '1px solid rgba(255,255,255,0.08)';
+                navLinks.style.backdropFilter = 'blur(20px)';
+                mobileToggle.innerHTML = '<i class="fas fa-times"></i>';
+            } else {
+                navLinks.style.display = '';
+                navLinks.style.flexDirection = '';
+                navLinks.style.position = '';
+                navLinks.style.top = '';
+                navLinks.style.left = '';
+                navLinks.style.right = '';
+                navLinks.style.background = '';
+                navLinks.style.padding = '';
+                navLinks.style.gap = '';
+                navLinks.style.borderTop = '';
+                navLinks.style.backdropFilter = '';
+                mobileToggle.innerHTML = '<i class="fas fa-bars"></i>';
+            }
+        });
+
+        // Close mobile menu on link click
+        document.querySelectorAll('.navbar-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (mobileMenuOpen) {
+                    mobileToggle.click();
+                }
+            });
+        });
+
+        // ===== Smooth Scroll =====
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const offsetTop = target.offsetTop - 80;
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // ===== Animate on Scroll =====
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.animate-on-scroll').forEach(el => {
+            observer.observe(el);
+        });
+
+        // ===== FAQ Toggle =====
+        function toggleFaq(btn) {
+            const item = btn.parentElement;
+            const isActive = item.classList.contains('active');
+
+            // Close all
+            document.querySelectorAll('.faq-item').forEach(faq => {
+                faq.classList.remove('active');
+            });
+
+            // Open clicked one if it wasn't active
+            if (!isActive) {
+                item.classList.add('active');
+            }
+        }
+
+        // ===== Back to Top =====
+        const backToTop = document.getElementById('backToTop');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 500) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // ===== Platform Cards Hover =====
         document.querySelectorAll('.platform-card').forEach(card => {
             card.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateY(-15px) scale(1.05) rotate(-2deg)';
+                this.style.transform = 'translateY(-12px) scale(1.05) rotate(-1deg)';
             });
-            
             card.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateY(0) scale(1) rotate(0deg)';
+                this.style.transform = '';
             });
         });
+
+        // ===== Counter Animation =====
+        function animateCounters() {
+            const counters = document.querySelectorAll('.stat-big-number, .hero-stat-number');
+            counters.forEach(counter => {
+                const text = counter.textContent;
+                if (text.match(/^\d+/)) {
+                    const target = parseInt(text);
+                    const suffix = text.replace(/[\d.]+/, '');
+                    let current = 0;
+                    const increment = target / 40;
+                    const timer = setInterval(() => {
+                        current += increment;
+                        if (current >= target) {
+                            counter.textContent = text;
+                            clearInterval(timer);
+                        } else {
+                            counter.textContent = Math.floor(current) + suffix;
+                        }
+                    }, 30);
+                }
+            });
+        }
+
+        // Trigger counter animation when stats section is visible
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounters();
+                    statsObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.3 });
+
+        const statsSection = document.querySelector('.stats-showcase');
+        if (statsSection) statsObserver.observe(statsSection);
     </script>
 </body>
 </html>
-
+    
